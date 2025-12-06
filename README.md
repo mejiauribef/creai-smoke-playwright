@@ -103,12 +103,21 @@ npm run test:headed
 
 ## 📊 Reporting
 
-After the test run completes, an HTML report is generated automatically.
+The framework is configured to generate multiple types of reports:
 
-To view the report manually:
+1.  **List Reporter:** Shows real-time execution progress in the terminal.
+2.  **HTML Report:** A detailed, interactive report containing traces, screenshots, and videos (if configured).
+3.  **JSON Report:** A machine-readable file (`test-results.json`) useful for CI/CD integration.
+
+### Viewing the HTML Report
+The HTML report is automatically generated in the `playwright-report/` folder. To open it in your browser:
+
 ```bash
-npm run report
+npx playwright show-report
 ```
+
+### CI/CD Integration
+The `test-results.json` file can be used by CI tools to parse test results programmatically.
 
 ## 🧩 Key Components
 
