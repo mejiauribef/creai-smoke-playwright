@@ -41,7 +41,7 @@ export class HomePage {
   get navContact() {
     return this.page
       .locator('.navbar11_component a[href="/contact"][trigger="contact_cta"]')
-      .locator('visible=true');
+      .first();
   }
   /** Gets the contact link inside the mobile menu. */
   get mobileMenuContact() {

@@ -28,8 +28,7 @@ test.describe('Home - Mobile Smoke', () => {
 
     await expect(homePage.mobileNavOverlay).toBeVisible();
     
-    const visibleLinks = homePage.page.locator('.navbar11_link').locator('visible=true');
-    await expect(visibleLinks.first()).toBeVisible();
+    await expect(homePage.navLinks.first()).toBeVisible();
 
     await homePage.mobileMenuContact.click();
 
