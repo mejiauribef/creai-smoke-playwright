@@ -7,11 +7,7 @@ export default defineConfig({
   expect: {
     timeout: 5 * 1000,
   },
-  reporter: [
-    ['list'],
-    ['html', { open: 'never' }],
-    ['json', { outputFile: 'test-results.json' }]
-  ],
+  reporter: [['list'], ['html', { open: 'never' }], ['json', { outputFile: 'test-results.json' }]],
   use: {
     baseURL: 'https://www.creai.mx/es-mx', // homepage en español
     trace: 'on-first-retry',

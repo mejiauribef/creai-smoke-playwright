@@ -1,7 +1,6 @@
 import { test, expect } from '../../src/fixtures/pomFixtures';
 
 test.describe('Contact - Advanced Validation', () => {
-  
   test.beforeEach(async ({ contactPage }) => {
     await contactPage.gotoDirect();
     await contactPage.acceptCookiesIfPrompted();
@@ -11,16 +10,18 @@ test.describe('Contact - Advanced Validation', () => {
     await contactPage.nameInput.fill('Test User');
     await contactPage.purposeCombobox.selectOption({ index: 1 });
     await contactPage.descriptionTextarea.fill('Testing invalid email validation.');
-    
+
     await contactPage.emailInput.fill('not-an-email');
-    
+
     await contactPage.submitButton.click();
 
     await expect(contactPage.page).toHaveURL(/.*contact/);
 
     const emailField = contactPage.emailInput;
-    
-    const validationMessage = await emailField.evaluate((e: HTMLInputElement) => e.validationMessage);
+
+    const validationMessage = await emailField.evaluate(
+      (e: HTMLInputElement) => e.validationMessage,
+    );
     expect(validationMessage).not.toBe('');
   });
 
@@ -32,7 +33,7 @@ test.describe('Contact - Advanced Validation', () => {
     const requiredFields = [
       contactPage.nameInput,
       contactPage.emailInput,
-      contactPage.descriptionTextarea
+      contactPage.descriptionTextarea,
     ];
 
     for (const field of requiredFields) {
@@ -48,5 +49,4 @@ test.describe('Contact - Advanced Validation', () => {
     await expect(contactPage.failureMessage).toBeAttached();
     await expect(contactPage.failureMessage).toBeHidden();
   });
-
 });

@@ -21,12 +21,14 @@ This repository contains an automated testing framework for [Creai.mx](https://w
 ## 🛠️ Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone <repository-url>
    cd creai-smoke-playwright
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
@@ -61,6 +63,7 @@ creai-smoke-playwright/
 ## ⚙️ Configuration
 
 The framework is configured in `playwright.config.ts`:
+
 - **Base URL:** `https://www.creai.mx/es-mx`
 - **Timeouts:** 30s global timeout, 5s expect timeout.
 - **Projects:**
@@ -70,7 +73,9 @@ The framework is configured in `playwright.config.ts`:
 ## ▶️ Running Tests
 
 ### Run All Tests
+
 Executes all tests across all configured projects (Desktop & Mobile).
+
 ```bash
 npm test
 # or
@@ -78,25 +83,32 @@ npx playwright test
 ```
 
 ### Run Specific Project
+
 To run tests only for Desktop or Mobile:
+
 ```bash
 npx playwright test --project=chromium-desktop
 npx playwright test --project=chromium-mobile
 ```
 
 ### Run Specific Test File
+
 ```bash
 npx playwright test tests/home/home.mobile.spec.ts
 ```
 
 ### Run in UI Mode (Interactive)
+
 Opens the Playwright UI runner for debugging and time-traveling.
+
 ```bash
 npm run test:ui
 ```
 
 ### Run in Headed Mode
+
 Watch the browser execute actions in real-time.
+
 ```bash
 npm run test:headed
 ```
@@ -110,6 +122,7 @@ The framework is configured to generate multiple types of reports:
 3.  **JSON Report:** A machine-readable file (`test-results.json`) useful for CI/CD integration.
 
 ### Viewing the HTML Report
+
 The HTML report is automatically generated in the `playwright-report/` folder. To open it in your browser:
 
 ```bash
@@ -117,20 +130,25 @@ npx playwright show-report
 ```
 
 ### CI/CD Integration
+
 The `test-results.json` file can be used by CI tools to parse test results programmatically.
 
 ## 🧩 Key Components
 
 ### Page Objects
+
 Located in `src/pages/`. These classes encapsulate the logic and locators for specific pages.
+
 - **HomePage:** Handles navigation, cookie banner, hero section, services tabs, success stories slider, FAQ, and newsletter.
 - **ContactPage:** Handles the contact form, input validation, and terms checkbox interaction.
 
 ### Fixtures
+
 Located in `src/fixtures/pomFixtures.ts`.
 We extend the base `test` object to include our Page Objects (`homePage`, `contactPage`) and a helper flag `isMobile`. This allows tests to request these objects directly in the arguments.
 
 **Example Usage:**
+
 ```typescript
 import { test, expect } from '../../src/fixtures/pomFixtures';
 
@@ -144,8 +162,9 @@ test('Example Test', async ({ homePage, isMobile }) => {
 ```
 
 ## 📱 Mobile Testing Strategy
+
 The framework specifically handles mobile responsiveness:
+
 - **Viewport:** Emulated Pixel 7.
 - **Navigation:** Handles the "Hamburger Menu" interaction which is only visible on mobile.
 - **Locators:** Uses robust locators that work across breakpoints or specific mobile locators when necessary.
-
