@@ -19,7 +19,7 @@ export const test = base.extend<Pages>({
   contactPage: async ({ page }, use) => {
     await use(new ContactPage(page));
   },
-  isMobile: async ({}, use, testInfo) => {
+  isMobile: async (_, use, testInfo) => {
     await use(testInfo.project.name.toLowerCase().includes('mobile'));
   },
 });

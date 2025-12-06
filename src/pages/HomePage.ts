@@ -25,61 +25,105 @@ export class HomePage {
     this.logo = page.getByRole('link', { name: 'home' });
     this.heroTitle = page.getByRole('heading', { level: 1 });
     this.primaryCta = page.getByRole('link', { name: 'Get started' });
-    this.servicesSectionTitle = page.locator('.section_layout497').getByRole('heading', { name: /Evolve and optimize/ });
+    this.servicesSectionTitle = page
+      .locator('.section_layout497')
+      .getByRole('heading', { name: /Evolve and optimize/ });
     this.successStoriesSectionTitle = page.getByRole('heading', { name: 'Success stories' });
     this.faqSectionTitle = page.getByRole('heading', { name: 'FAQs' });
     this.headerNav = page.locator('.navbar11_menu');
   }
 
   /** Gets the hamburger menu button (mobile only). */
-  get navMenuButton() { return this.page.locator('.navbar11_menu-button'); }
+  get navMenuButton() {
+    return this.page.locator('.navbar11_menu-button');
+  }
   /** Gets the contact button in the navigation bar. */
-  get navContact() { return this.page.locator('.navbar11_component a[href="/contact"][trigger="contact_cta"]').locator('visible=true'); }
+  get navContact() {
+    return this.page
+      .locator('.navbar11_component a[href="/contact"][trigger="contact_cta"]')
+      .locator('visible=true');
+  }
   /** Gets the contact link inside the mobile menu. */
-  get mobileMenuContact() { return this.headerNav.locator('a[href="/contact"]'); }
+  get mobileMenuContact() {
+    return this.headerNav.locator('a[href="/contact"]');
+  }
   /** Gets the navigation links. */
-  get navLinks() { return this.headerNav.locator('.navbar11_link'); }
+  get navLinks() {
+    return this.headerNav.locator('.navbar11_link');
+  }
   /** Gets the mobile navigation overlay. */
-  get mobileNavOverlay() { return this.page.locator('.w-nav-overlay'); }
+  get mobileNavOverlay() {
+    return this.page.locator('.w-nav-overlay');
+  }
 
   /** Gets the services section. */
-  get servicesSection() { return this.page.locator('.section_layout497'); }
+  get servicesSection() {
+    return this.page.locator('.section_layout497');
+  }
   /** Gets the service tabs. */
-  get serviceTabs() { return this.servicesSection.locator('.layout497_tab-link'); }
+  get serviceTabs() {
+    return this.servicesSection.locator('.layout497_tab-link');
+  }
   /** Gets the service tab panes. */
-  get serviceTabPanes() { return this.servicesSection.locator('.layout497_tab-pane'); }
+  get serviceTabPanes() {
+    return this.servicesSection.locator('.layout497_tab-pane');
+  }
 
   /** Gets the success stories slider. */
-  get successStoriesSlider() { return this.page.locator('.swiper.test2'); }
+  get successStoriesSlider() {
+    return this.page.locator('.swiper.test2');
+  }
   /** Gets the success story slides (excluding cloned ones). */
-  get successStorySlides() { 
-    return this.successStoriesSlider.locator('.swiper-slide:not(.slick-cloned)'); 
+  get successStorySlides() {
+    return this.successStoriesSlider.locator('.swiper-slide:not(.slick-cloned)');
   }
 
   /** Gets the FAQ section. */
-  get faqSection() { return this.page.locator('.section_faq6'); }
+  get faqSection() {
+    return this.page.locator('.section_faq6');
+  }
   /** Gets the FAQ questions. */
-  get faqQuestions() { return this.faqSection.locator('.faq6_question'); }
+  get faqQuestions() {
+    return this.faqSection.locator('.faq6_question');
+  }
   /** Gets the FAQ answers. */
-  get faqAnswers() { return this.faqSection.locator('.faq6_answer'); }
+  get faqAnswers() {
+    return this.faqSection.locator('.faq6_answer');
+  }
 
   /** Gets the insights/blog section. */
-  get insightsSection() { return this.page.locator('.section_latest_posts'); }
+  get insightsSection() {
+    return this.page.locator('.section_latest_posts');
+  }
   /** Gets the insight cards. */
-  get insightCards() { return this.insightsSection.locator('.latest_post_card-item'); }
+  get insightCards() {
+    return this.insightsSection.locator('.latest_post_card-item');
+  }
 
   /** Gets the newsletter CTA button. */
-  get newsletterCta() { return this.page.locator('.banner_newsletter-cta'); }
+  get newsletterCta() {
+    return this.page.locator('.banner_newsletter-cta');
+  }
   /** Gets the newsletter modal. */
-  get newsletterModal() { return this.page.locator('.newsletter_modal'); }
+  get newsletterModal() {
+    return this.page.locator('.newsletter_modal');
+  }
   /** Gets the newsletter email input. */
-  get newsletterEmailInput() { return this.newsletterModal.locator('input[name="Email-2"]'); }
+  get newsletterEmailInput() {
+    return this.newsletterModal.locator('input[name="Email-2"]');
+  }
   /** Gets the newsletter terms checkbox. */
-  get newsletterTermsCheckbox() { return this.newsletterModal.locator('input[name="Contact-6-Checkbox"]'); }
+  get newsletterTermsCheckbox() {
+    return this.newsletterModal.locator('input[name="Contact-6-Checkbox"]');
+  }
   /** Gets the newsletter terms label. */
-  get newsletterTermsLabel() { return this.newsletterModal.locator('label#Contact-6-Checkbox'); }
+  get newsletterTermsLabel() {
+    return this.newsletterModal.locator('label#Contact-6-Checkbox');
+  }
   /** Gets the newsletter submit button. */
-  get newsletterSubmit() { return this.newsletterModal.locator('input[type="submit"]'); }
+  get newsletterSubmit() {
+    return this.newsletterModal.locator('input[type="submit"]');
+  }
 
   /**
    * Opens the newsletter modal by clicking the CTA.
@@ -114,9 +158,9 @@ export class HomePage {
       if (await this.allowAllCta.isVisible({ timeout: 5000 })) {
         await this.allowAllCta.click();
         await this.allowAllCta.waitFor({ state: 'hidden' });
-      } else {
       }
-    } catch (e) {
+    } catch {
+      // Ignore errors if cookie banner is not present or interactable
     }
   }
 

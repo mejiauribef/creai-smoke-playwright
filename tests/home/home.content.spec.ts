@@ -1,7 +1,6 @@
 import { test, expect } from '../../src/fixtures/pomFixtures';
 
 test.describe('Home - Content & Core Business Validation', () => {
-  
   test.beforeEach(async ({ homePage }) => {
     await homePage.goto();
     await homePage.acceptCookiesIfPrompted();
@@ -13,7 +12,7 @@ test.describe('Home - Content & Core Business Validation', () => {
     const expectedServices = [
       'Holistic AI Strategy',
       'Custom Solutions Factory',
-      'Talent as a Service'
+      'Talent as a Service',
     ];
 
     for (const service of expectedServices) {
@@ -26,12 +25,13 @@ test.describe('Home - Content & Core Business Validation', () => {
     for (let i = 0; i < count; i++) {
       const tab = homePage.serviceTabs.nth(i);
       const title = await tab.locator('h3').innerText();
-      
-      if (expectedServices.some(s => title.includes(s))) {
+
+      if (expectedServices.some((s) => title.includes(s))) {
         await tab.click();
-        
-        const activePane = homePage.serviceTabPanes.locator('.w--tab-active'); 
-        await expect(homePage.servicesSection.getByRole('link', { name: 'Discover' }).first()).toBeVisible();
+
+        await expect(
+          homePage.servicesSection.getByRole('link', { name: 'Discover' }).first(),
+        ).toBeVisible();
       }
     }
   });
@@ -42,16 +42,20 @@ test.describe('Home - Content & Core Business Validation', () => {
 
     const slides = homePage.successStorySlides;
     await expect(slides.first()).toBeVisible();
-    
-    const expectedClients = ['Vensure', 'Viajes Anita']; 
-    
+
+    const expectedClients = ['Vensure', 'Viajes Anita'];
+
     for (const client of expectedClients) {
       await expect(homePage.successStoriesSlider.getByText(client).first()).toBeVisible();
     }
 
-    await expect(homePage.successStoriesSlider.getByRole('link', { name: 'Read more' }).first()).toBeVisible();
+    await expect(
+      homePage.successStoriesSlider.getByRole('link', { name: 'Read more' }).first(),
+    ).toBeVisible();
 
-    const firstStoryLink = homePage.successStoriesSlider.getByRole('link', { name: 'Read more' }).first();
+    const firstStoryLink = homePage.successStoriesSlider
+      .getByRole('link', { name: 'Read more' })
+      .first();
     const href = await firstStoryLink.getAttribute('href');
     expect(href).toContain('/success-stories/');
   });
@@ -66,13 +70,15 @@ test.describe('Home - Content & Core Business Validation', () => {
 
     const firstQuestion = questions.first();
     await firstQuestion.click();
-    
+
     const answerText = homePage.faqAnswers.first();
     await expect(answerText).toBeVisible();
   });
 
   test('2.2. Home – Knowledge hub / Latest insights', async ({ homePage }) => {
-    const isHidden = await homePage.insightsSection.getAttribute('class').then(c => c?.includes('hide'));
+    const isHidden = await homePage.insightsSection
+      .getAttribute('class')
+      .then((c) => c?.includes('hide'));
     if (isHidden) {
       test.skip(true, 'La sección Latest Insights está oculta en el HTML actual (clase "hide").');
       return;
@@ -84,7 +90,7 @@ test.describe('Home - Content & Core Business Validation', () => {
     const expectedPosts = [
       'Hybrid intelligence vs. AI agent-washing',
       'How Virtual Agents Work',
-      'Enhance Your Customer Experience'
+      'Enhance Your Customer Experience',
     ];
 
     for (const post of expectedPosts) {
@@ -97,22 +103,20 @@ test.describe('Home - Content & Core Business Validation', () => {
 
   test('2.2. Home – Newsletter subscription', async ({ homePage }) => {
     if (await homePage.newsletterCta.isVisible()) {
-        await homePage.openNewsletterModal();
-    } else {
+      await homePage.openNewsletterModal();
     }
 
     await expect(homePage.newsletterModal).toBeVisible();
-    
+
     await expect(homePage.newsletterEmailInput).toBeVisible();
     await expect(homePage.newsletterTermsLabel).toBeVisible();
 
     await homePage.newsletterEmailInput.fill('test@example.com');
     await homePage.newsletterSubmit.click();
-    
+
     const successMessage = homePage.newsletterModal.locator('.w-form-done');
     await expect(successMessage).not.toBeVisible();
 
-    await homePage.toggleNewsletterTerms(); 
+    await homePage.toggleNewsletterTerms();
   });
-
 });

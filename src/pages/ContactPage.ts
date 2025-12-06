@@ -38,21 +38,18 @@ export class ContactPage {
     this.termsCheckbox = page.getByRole('checkbox', { name: /i accept the terms/i });
 
     this.termsLink = page.getByRole('link', { name: 'Terms and Conditions' });
-    
+
     this.submitButton = page.getByRole('button', { name: 'Contact' }).last();
     this.allowAllCta = page.getByRole('button', { name: /^(allow all|permitir todas)$/i });
   }
 
   /** Gets the success message element. */
-  get successMessage() { return this.form.locator('xpath=..').locator('.w-form-done'); }
+  get successMessage() {
+    return this.form.locator('xpath=..').locator('.w-form-done');
+  }
   /** Gets the failure message element. */
-  get failureMessage() { return this.form.locator('xpath=..').locator('.w-form-fail'); }
-  
-  /**
-   * Toggles the terms and conditions checkbox.
-   */
-  async toggleTerms(): Promise<void> {
-    await this.form.locator('label#Contact-6-Checkbox').click();
+  get failureMessage() {
+    return this.form.locator('xpath=..').locator('.w-form-fail');
   }
 
   /**
@@ -83,9 +80,9 @@ export class ContactPage {
     await expect(this.emailInput).toBeVisible();
     await expect(this.purposeCombobox).toBeVisible();
     await expect(this.descriptionTextarea).toBeVisible();
-    
+
     await expect(this.termsCheckbox).toBeAttached();
-    
+
     await expect(this.page.getByText('I accept the Terms and').first()).toBeVisible();
 
     await expect(this.termsLink).toBeVisible();
@@ -105,4 +102,3 @@ export class ContactPage {
     return values;
   }
 }
-
