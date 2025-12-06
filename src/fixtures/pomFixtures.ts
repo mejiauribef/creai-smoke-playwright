@@ -19,7 +19,8 @@ export const test = base.extend<Pages>({
   contactPage: async ({ page }, use) => {
     await use(new ContactPage(page));
   },
-  isMobile: async (_, use, testInfo) => {
+  // eslint-disable-next-line no-empty-pattern
+  isMobile: async ({}, use, testInfo) => {
     await use(testInfo.project.name.toLowerCase().includes('mobile'));
   },
 });
