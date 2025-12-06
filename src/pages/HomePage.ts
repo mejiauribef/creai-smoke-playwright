@@ -35,7 +35,7 @@ export class HomePage {
 
   /** Gets the hamburger menu button (mobile only). */
   get navMenuButton() {
-    return this.page.locator('.navbar11_menu-button');
+    return this.page.getByRole('button', { name: 'menu' });
   }
   /** Gets the contact button in the navigation bar. */
   get navContact() {
@@ -49,11 +49,27 @@ export class HomePage {
   }
   /** Gets the navigation links. */
   get navLinks() {
-    return this.headerNav.locator('.navbar11_link');
+    return this.page.locator('.navbar11_component .w-nav-menu a.navbar11_link');
   }
+
   /** Gets the mobile navigation overlay. */
   get mobileNavOverlay() {
-    return this.page.locator('.w-nav-overlay');
+    // Narrow it to the navbar component; don’t grab all overlays in page
+    return this.page.locator('.navbar11_component .w-nav-overlay');
+  }
+
+  async openMobileMenu(): Promise<void> {
+    await this.navMenuButton.scrollIntoViewIfNeeded();
+    await this.navMenuButton.click();
+
+    // Wait for something that indicates “menu is open”
+    // Try overlay first; if that’s unreliable, use class/aria.
+    await this.page.waitForTimeout(100); // tiny debounce for Webflow animations
+  }
+
+  async isMenuOpen(): Promise<boolean> {
+    const btnClasses = await this.navMenuButton.getAttribute('class');
+    return !!btnClasses && btnClasses.includes('w--open');
   }
 
   /** Gets the services section. */

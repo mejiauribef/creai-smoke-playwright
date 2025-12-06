@@ -21,8 +21,7 @@ test.describe('Home - Mobile Smoke', () => {
     const firstLink = homePage.navLinks.first();
     await expect(firstLink, 'Links del menú no deben ser visibles inicialmente').not.toBeVisible();
 
-    const menuIcon = homePage.navMenuButton.locator('.menu-icon1');
-    await menuIcon.click({ force: true });
+    await homePage.openMobileMenu();
 
     await expect(homePage.navMenuButton).toHaveClass(/w--open/);
 
